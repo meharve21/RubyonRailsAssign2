@@ -68,9 +68,9 @@ class MakesController < ApplicationController
       @make = Make.find(params[:id])
     end
 
-  test "Make name shouldn't be empty" do
-    assert Make.where("name like ?", "vw").length == 0
-  end
+  #test "Make name shouldn't be empty" do
+   # assert Make.where("name like ?", "vw").length == 0
+ # end
 
   #test "should create make" do
    # assert_difference('Make.count') do

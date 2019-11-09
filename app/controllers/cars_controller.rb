@@ -1,6 +1,13 @@
 class CarsController < ApplicationController
   before_action :set_car, only: [:show, :edit, :update, :destroy]
 
+  # GET /cars/new
+  def new
+    @car = Car.new
+    @parts = Part.all
+    @makes = Make.all
+  end
+
   # GET /cars
   # GET /cars.json
   def index
@@ -13,23 +20,20 @@ class CarsController < ApplicationController
   def show
   end
 
-  # GET /cars/new
-  def new
-    @car = Car.new
-    @parts = Part.all
-  end
+
 
   # GET /cars/1/edit
   def edit
     @parts = Part.all
+    @makes = Make.all
   end
 
   # POST /cars
   # POST /cars.json
   def create
     @car = Car.new(car_params)
-    @parts = Part.all
-    @makes = Make.all
+   # @parts = Part.all
+   # @makes = Make.all
 
     respond_to do |format|
       if @car.save
@@ -72,19 +76,19 @@ class CarsController < ApplicationController
       @car = Car.find(params[:id])
     end
 
-  test "Car name shouldn't be empty" do
-    assert Car.where("name like ?", "x5").length == 0
-  end
+  #test "Car name shouldn't be empty" do
+   # assert Car.where("name like ?", "x5").length == 0
+  #end
 
-  test "shouldn't find Maserati" do
-    get search_cars_url, params: { search: "Maserati" }
-    assert_select 'td', false
-  end
+  #test "shouldn't find Maserati" do
+    #get search_cars_url, params: { search: "Maserati" }
+   # assert_select 'td', false
+  #end
 
 
 
   # Never trust parameters from the scary internet, only allow the white list through.
     def car_params
-      params.require(:car).permit(:name, :search, :make_id => [], :part_id => [])
+      params.require(:car).permit(:name, :search, :make_id, :part_id)
     end
 end
